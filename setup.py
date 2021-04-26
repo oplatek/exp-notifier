@@ -23,7 +23,7 @@ setup(
         'Intended Audience :: Developers',      # Define that your audience are developers
         'Topic :: System :: Logging',
         'Topic :: System :: Networking :: Monitoring',
-        'License :: OSI Approved :: Apache Software License'
+        'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
