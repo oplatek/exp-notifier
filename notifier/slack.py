@@ -1,11 +1,13 @@
 import logging
 import os
 from pathlib import Path
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
 
 
 logger = logging.getLogger(__name__)
 
-def get_slack_bot_token(token_var=None, token_file=None):
+def get_slack_bot_token(token_var=None, token_file=None, **kwargs):
     os.environ.get("SLACK_BOT_TOKEN")
     SLACK_BOT_TOKEN_FILENAME = Path('.slack_bot_token')
     if SLACK_BOT_TOKEN_FILENAME.is_file() and token_file is None:  # in current working directory
@@ -20,3 +22,34 @@ def get_slack_bot_token(token_var=None, token_file=None):
         token_var = token_var if token_var is not None else 'SLACK_BOT_TOKEN'
         logger.warn(f'Loading slack bot token from {token_var} variable.')
         return os.environ[token_var].strip()
+
+
+def send_msg_to_channel(token, channel, text):
+    client = WebClient(token=token)
+    logger = logging.getLogger(__name__)
+
+    try:
+        result = client.chat_postMessage(
+            channel=channel,
+            text=text
+        )
+        logger.info(result)
+    except SlackApiError as e:
+        logger.error(f"Error posting message: {e}")
+
+
+class SlackMsgSend:
+    def __init__(self, msg=None, channel=None, token=None, **kwargs):
+        self.channel = "" if channel is None else channel
+        self.msg = "" if msg is None else msg
+        self.token = get_slack_bot_token() if token is None else token
+        assert self.channel, 'You need to specify channel'
+        assert self.token, 'You need to specify token'
+
+    def __call__(self, msg=None, append=True):
+        msg = "" if msg is None else msg
+        if append:
+            self.msg += msg
+        else:
+            self.msg = msg
+        send_msg_to_channel(self.token, self.channel, self.msg)

@@ -2,8 +2,25 @@
 
 ## Usage 
 
+### Slack notifications
+The experiment notifier assumes that for sending messages you have `SLACK_BOT_TOKEN` either in:
+- current working directory stored in `./.slack_bot_token` file
+- or at your home dir in the file `$HOME/.slack_bot_token`
+- or in `SLACK_BOT_TOKEN` variable
+
+Note, that storing the token in a file with `600` permissions is the recommended method.
+
 ```
-ntf --channel exp-notifier --text "Your text goes here"
+# CLI usage
+$ ntf --channel exp-notifier --text "Your text goes here"
+```
+
+```
+# Python usage
+from notifier.context import SlackMessage
+
+with SlackMessage(channel='exp-notifier') as sm:
+  sm.write('test from python')
 ```
 
 ## Development
