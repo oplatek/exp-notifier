@@ -6,9 +6,10 @@
 ntf --channel exp-notifier --text "Your text goes here"
 ```
 
-## Development 
+## Development
 
 ```
+# change to git root directory of source code
 pip install -e .
 ```
 
@@ -18,4 +19,5 @@ pip install -e .
   - Remember `SLACK_BOT_TOKEN`
 - [Setup Socket mode](https://api.slack.com/apis/connections/socket#sdks). 
   - Remember `SLACK_APP_TOKEN` 
-- Add your app `APPNAME e.g. exp-notifier`  to channel `#CHANNEL e.g. #exp-notifier`
+- Add your app `APPNAME e.g. exp-notifier`  to slack channel `#CHANNEL e.g. #exp-notifier`
+- Install the CLI client locally. See [Development](#development)
