@@ -13,6 +13,6 @@ setup(
     author='Ondrej Platek',
     license='Apache-2.0 License',
     packages=find_packages(),
-    scripts=['notifier/bin/send-msg.py'],
+    scripts=['notifier/bin/ntf'],
     install_requires=install_requires,
 )
