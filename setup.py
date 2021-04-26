@@ -3,11 +3,11 @@ from setuptools import find_packages, setup
 from pathlib import Path
 
 project_root = Path(__file__).parent
-install_requires = (project_root / 'requirements.txt').read_text().splitlines()
+# install_requires = (project_root / 'requirements.txt').read_text().splitlines()
 
 setup(
     name='exp-notifier',
-    version='0.0.2',
+    version='0.0.3',
     python_requires='>=3.6.0',
     description='Notifcation from experiments to you devices (via slack)',
     long_description=(project_root / 'README.md').read_text(),
@@ -16,10 +16,11 @@ setup(
     author_email='ondrej.platek@seznam.cz',
     license='Apache-2.0 License',
     url='https://github.com/oplatek/exp-notifier',
-    donwload_url='https://github.com/oplatek/exp-notifier/archive/refs/tags/0.0.2.tar.gz',
+    donwload_url='https://github.com/oplatek/exp-notifier/archive/refs/tags/0.0.3.tar.gz',
     packages=find_packages(),
     scripts=['notifier/bin/ntf'],
-    install_requires=install_requires,
+    # install_requires=install_requires,  # TODO make working
+    install_requires=['slack_bolt', 'click'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',      # Define that your audience are developers
