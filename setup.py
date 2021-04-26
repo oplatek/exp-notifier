@@ -11,6 +11,7 @@ setup(
     python_requires='>=3.6.0',
     description='Notifcation from experiments to you devices (via slack)',
     author='Ondrej Platek',
+    author_email='ondrej.platek@seznam.cz',
     license='Apache-2.0 License',
     packages=find_packages(),
     scripts=['notifier/bin/ntf'],
