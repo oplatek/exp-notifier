@@ -30,13 +30,13 @@ with SlackMessage(channel='exp-notifier') as sm:
 - [Setup Socket mode](https://api.slack.com/apis/connections/socket#sdks). 
   - Remember `SLACK_APP_TOKEN` 
 - Add your app `APPNAME e.g. exp-notifier`  to slack channel `#CHANNEL e.g. #exp-notifier`
-- Install the CLI client locally. See [Development](#development)
+- **Install the client library and the `ntf` python script `pip install exp-notifier`**
 
 ## Development
 
 ```
 # change to git root directory of source code
-pip install -e .
+pip install -e '.[dev]'
 ```
 
 ## Features
