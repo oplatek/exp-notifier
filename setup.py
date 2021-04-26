@@ -6,7 +6,7 @@ project_dir = Path(__file__).parent
 install_requires = (project_dir / 'requirements.txt').open().read().splitlines()
 
 setup(
-    name='notifier',
+    name='exp-notifier',
     version='0.0.1',
     python_requires='>=3.6.0',
     description='Notifcation from experiments to you devices (via slack)',
