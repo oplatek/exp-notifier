@@ -14,6 +14,7 @@ Note, that storing the token in a file with `600` permissions is the recommended
 ```
 $ sleep 9999; ntf --channel exp-notifier --text "Done sleeping $? Your long running task just finished!"
 ```
+<img src="https://raw.githubusercontent.com/oplatek/exp-notifier/main/docs/slack_ntf_finished.png">
 
 #### Python usage
 ```
