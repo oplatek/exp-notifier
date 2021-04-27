@@ -10,13 +10,13 @@ The experiment notifier assumes that for sending messages you have `SLACK_BOT_TO
 
 Note, that storing the token in a file with `600` permissions is the recommended method.
 
+#### CLI usage
 ```
-# CLI usage
-$ ntf --channel exp-notifier --text "Your text goes here"
+$ sleep 9999; ntf --channel exp-notifier --text "Done sleeping $? Your long running task just finished!"
 ```
 
+#### Python usage
 ```
-# Python usage
 from notifier.context import SlackMessage
 
 with SlackMessage(channel='exp-notifier') as sm:
