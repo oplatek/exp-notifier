@@ -6,8 +6,8 @@ import click
 from notifier.slack import get_slack_bot_token, send_msg_to_channel
 
 @click.command()
-@click.option('--channel', required=True, type=str)
-@click.option('--text', required=True, type=str)
+@click.option('-c', '--channel', required=True, type=str)
+@click.option('-t', '--text', required=True, type=str)
 def msg_to_channel(channel, text):
     token = get_slack_bot_token()
     send_msg_to_channel(token, channel, text)

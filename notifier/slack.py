@@ -25,8 +25,12 @@ def get_slack_bot_token(token_var=None, token_file=None, **kwargs):
 
 
 def send_msg_to_channel(token, channel, text):
-    client = WebClient(token=token)
     logger = logging.getLogger(__name__)
+    if channel == '/dev/null':
+        logger.warn(f'Channel /dev/null. Dumping message:\n\t{text}')
+        return
+
+    client = WebClient(token=token)
 
     try:
         result = client.chat_postMessage(
@@ -35,7 +39,7 @@ def send_msg_to_channel(token, channel, text):
         )
         logger.info(result)
     except SlackApiError as e:
-        logger.error(f"Error posting message: {e}")
+        logger.exception(f'Error posting message: {e}')
 
 
 class SlackMsgSend:
