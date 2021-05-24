@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import logging
+import sys
 
 import click 
 
@@ -10,7 +11,11 @@ from notifier.slack import get_slack_bot_token, send_msg_to_channel
 @click.option('-t', '--text', required=True, type=str)
 def msg_to_channel(channel, text):
     token = get_slack_bot_token()
-    send_msg_to_channel(token, channel, text)
+    if not token:
+        logging.error(f'Slack token is not set exiting!')
+        sys.exit(1)
+    else:
+        send_msg_to_channel(token, channel, text)
 
 
 if __name__ == "__main__":

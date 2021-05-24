@@ -1,10 +1,18 @@
 import logging
 from notifier.slack import SlackMsgSend
 
+class LoggingPostman:
+    def __init__(self):
+        logging.warn('Using LoggingPostman which logs the messages using logging.info function.\n\tAdjust your logging level if you want to see the messages!')
+
+    def __call__(self, msg=None):
+        msg = '' if msg is None else msg
+        logging.info(msg)
+
 
 class Message:
     def __init__(self, postman=None, **kwargs):
-        self._postman = postman
+        self._postman = LoggingPostman() if postman is None else postman
         self._msgs = []
 
     def write(self, msg):
@@ -23,15 +31,15 @@ class Message:
 
 class SlackMessage(Message):
     def __init__(self, postman=None, **kwargs):
-        super().__init__()
 
         if postman is not None:
             if isinstance(postman, SlackMsgSend):
-                self._postman = postman
+                postman = postman
             else:
                 raise RuntimeError('You should provide SlackMsgSend instance as a postman')
         else:
             try:
-                self._postman = SlackMsgSend(**kwargs)
+                postman = SlackMsgSend(**kwargs)
             except Exception as e:
                 logging.exception('Cannot create a Slack postman. It is not possible to send messages to slack.')
+        super().__init__(postman)

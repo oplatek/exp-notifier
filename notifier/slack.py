@@ -52,7 +52,7 @@ class SlackMsgSend:
         assert self.token, 'You need to specify token'
 
     def __call__(self, msg=None, append=True):
-        msg = "" if msg is None else msg
+        msg = '' if msg is None else msg
         if append:
             self.msg += msg
         else:
