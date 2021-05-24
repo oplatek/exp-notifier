@@ -1,3 +1,4 @@
+import logging
 from notifier.slack import SlackMsgSend
 
 
@@ -13,7 +14,11 @@ class Message:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self._postman('\n'.join(self._msgs))
+        msg = '\n'.join(self._msgs)
+        try:
+            self._postman(msg)
+        except Exception as e:
+            logging.exception(f'FAIL sending message:\n\t{msg}\n\n')
 
 
 class SlackMessage(Message):
@@ -24,6 +29,9 @@ class SlackMessage(Message):
             if isinstance(postman, SlackMsgSend):
                 self._postman = postman
             else:
-                raise RuntimeError('When using class SlackPostmanMixin, you should provide SlackMsgSend instance as a postman')
+                raise RuntimeError('You should provide SlackMsgSend instance as a postman')
         else:
-            self._postman = SlackMsgSend(**kwargs)
+            try:
+                self._postman = SlackMsgSend(**kwargs)
+            except Exception as e:
+                logging.exception('Cannot create a Slack postman. It is not possible to send messages to slack.')

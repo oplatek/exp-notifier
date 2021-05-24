@@ -8,10 +8,7 @@ from slack_sdk.errors import SlackApiError
 logger = logging.getLogger(__name__)
 
 def get_slack_bot_token(token_var=None, token_file=None, **kwargs):
-    os.environ.get("SLACK_BOT_TOKEN")
     SLACK_BOT_TOKEN_FILENAME = Path('.slack_bot_token')
-    if SLACK_BOT_TOKEN_FILENAME.is_file() and token_file is None:  # in current working directory
-        token_file = SLACK_BOT_TOKEN_FILENAME
     token_file = token_file if token_file is not  None \
             else Path(os.environ['HOME'])  / SLACK_BOT_TOKEN_FILENAME
     if token_file.is_file():
@@ -21,13 +18,17 @@ def get_slack_bot_token(token_var=None, token_file=None, **kwargs):
         logger.warn(f'{token_file} file does not exists.\nCannot use safer way of loading tokens from file for slack bot token.')
         token_var = token_var if token_var is not None else 'SLACK_BOT_TOKEN'
         logger.warn(f'Loading slack bot token from {token_var} variable.')
-        return os.environ[token_var].strip()
+        if not token_var in os.environ:
+            logging.warn(f'Cannot get slack app token even from {token_var}')
+            return ''
+        else:
+            return os.environ.get(token_var, '').strip()
 
 
 def send_msg_to_channel(token, channel, text):
     logger = logging.getLogger(__name__)
     if channel == '/dev/null':
-        logger.warn(f'Channel /dev/null. Dumping message:\n\t{text}')
+        logger.warn(f'Channel /dev/null. Dumping message:\n\n{text}\n')
         return
 
     client = WebClient(token=token)
