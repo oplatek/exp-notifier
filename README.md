@@ -16,6 +16,18 @@ $ sleep 9999; ntf --channel exp-notifier --text "Done sleeping $? Your long runn
 ```
 <img src="https://raw.githubusercontent.com/oplatek/exp-notifier/main/docs/slack_ntf_finished.png">
 
+##### CLI API
+
+```bash
+$ ntf --help
+Usage: ntf [OPTIONS]
+
+Options:
+  -c, --channel TEXT  [required]
+  -t, --text TEXT     [required]
+  --help              Show this message and exit.
+```
+
 #### Python usage
 ```
 from notifier.context import SlackMessage
@@ -23,6 +35,16 @@ from notifier.context import SlackMessage
 with SlackMessage(channel='exp-notifier') as sm:
   sm.write('test from python')
 ```
+
+###### Debugging / Disable messaging to slack
+
+```
+with SlackMessage(channel='/dev/null') as sm:
+  sm.write('This message is just logged using logging module.')
+  sm.write('Useful if you do not want to bother others with slack messages.')
+  sm.write('E.g. if you test your code.')
+```
+
 
 ## Installation
 - [Setup and install the app](https://api.slack.com/start/building/bolt-python#start)
