@@ -7,7 +7,7 @@ project_root = Path(__file__).parent
 
 setup(
     name='exp-notifier',
-    version='0.0.4',
+    version='0.0.5',
     python_requires='>=3.6.0',
     description='Notifcation from experiments to you devices (via slack)',
     long_description=(project_root / 'README.md').read_text(),
