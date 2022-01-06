@@ -64,6 +64,11 @@ pip install -e '.[dev]'
 
 ## Features
 - [x] Sending text message to a channel under the app name.
+
+## Ideas
+- [ ] `ntf --tail log.txt --tail-exit-strategy regexp --exit-regexp "[eE]rror"`
+- [ ] `ntf --tail --slurm-job-id 1234 --tail-exit-strategy slurm-job`
+- [ ] Save all the personalized options to json config files and search for config a) from cwd up to home, b) in the home if a) does not succeeds
 - [ ] Sending a text instant message (IM).
 - [ ] Attach file (log file) to a message
 - [ ] Attach a picture / sound file to be played back
